@@ -1,10 +1,10 @@
 class Responser:
-    def __init__(self, event,  dialog):
+    def __init__(self, event: dict,  dialog: object):
         self.dialog = dialog
         self.dialog_type = str(type(self.dialog))[str(type(self.dialog)).index('.') + 1: -2]
         self.event = event
 
-    def get_response(self):
+    def get_response(self) -> dict:
         match self.dialog_type:
             case 'Dialog':
                 return self.get_response_dialog()
@@ -79,7 +79,7 @@ class Responser:
         }
 
     @staticmethod
-    def create_buttons(buttons):
+    def create_buttons(buttons: list) -> list:
         result = []
         for button in buttons:
             if isinstance(button, str):
@@ -88,5 +88,7 @@ class Responser:
             result.append(button)
         return result
 
-    def is_authorize(self):
+    #Метод авторизации. В данном случае проверяет наличие access_token пользователя
+    #Для других видов проверки следует изменить
+    def is_authorize(self) -> bool:
         return "access_token" in self.event["session"]["user"]

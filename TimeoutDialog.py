@@ -4,7 +4,7 @@ import threading
 
 
 class TimeoutDialog(Dialog):
-    def get_response_info(self, event):
+    def get_response_info(self, event: dict) -> dict:
         print(global_storage)
         if not self.get_user_id(event) in global_storage:
             set_key(global_storage, self.get_user_id(event), {'response': {}, 'isCompleted': False})
@@ -29,10 +29,10 @@ class TimeoutDialog(Dialog):
                 del global_storage[self.get_user_id(event)]
                 return response
 
-    def get_timeout_response(self, event):
+    def get_timeout_response(self, event: dict) -> None:
         response = self.get_response(event)
         set_key(global_storage, self.get_user_id(event), {"response": response, 'isCompleted': True})
 
     @staticmethod
-    def get_user_id(event):
+    def get_user_id(event: dict) -> str:
         return event['session']['application']['application_id']

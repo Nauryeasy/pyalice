@@ -1,18 +1,19 @@
 from Response import Responser
+from MiddlewareDialog import MiddlewareDialog
 
 
 class Handler:
-    def __init__(self, dialogs_dict, middleware_dialog_list, start_dialog):
+    def __init__(self, dialogs_dict: dict, start_dialog: object):
         self.dialogs_dict = dialogs_dict
-        self.middleware_dialog_list = middleware_dialog_list
+        self.middleware_dialog_list = MiddlewareDialog.middleware_list
         self.start_dialog = start_dialog
 
-    def choose_dialog(self, event):
+    def choose_dialog(self, event: dict) -> dict:
         if self.check_new_session(event):
             responser = Responser(event, self.start_dialog)
             return responser.get_response()
 
-        for middleware_dialog in self.middleware_dialog_list:
+        for middleware_dialog in MiddlewareDialog.middleware_list:
             if self.check_tokens(event, middleware_dialog):
                 middleware_dialog.set_last_state(self.dialogs_dict[self.get_state(event)])
                 if middleware_dialog.last_state == middleware_dialog:
@@ -45,13 +46,13 @@ class Handler:
         }
 
     @staticmethod
-    def get_state(event):
+    def get_state(event: dict) -> str:
         return event['state']['session']['branch']
 
     @staticmethod
-    def check_tokens(event, dialog):
+    def check_tokens(event: dict, dialog: object) -> bool:
         return dialog.tokens & set(event['request']["nlu"]['tokens'])
 
     @staticmethod
-    def check_new_session(event):
+    def check_new_session(event: dict) -> bool:
         return event['session']['new'] or not "branch" in event["state"]["session"]
