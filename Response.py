@@ -8,7 +8,7 @@ class Responser:
         match self.dialog_type:
             case 'Dialog':
                 return self.get_response_dialog()
-            case 'MiddleWareDialog':
+            case 'MiddlewareDialog':
                 return self.get_response_dialog()
             case 'StartDialog':
                 return self.get_response_start_dialog()
