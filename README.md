@@ -75,6 +75,7 @@ Response - класс, который формирует ответ. С данн
 Примеры навыков:
 - Менеджер музыки, работающий с api Яндекс музыки: https://github.com/Nauryeasy/HacatonYandexMusic
   (Примечание: Навык написан на еще более старой версии "библиотеки", поэтому некоторые вещи там отличаются)
+- Эхо-бот: https://github.com/Nauryeasy/EchoBot_pyalice/blob/master/main.py
 
 Update:
 - Больше не нужно в Handler передавать middleware_dialogs_list, нужно просто создать объект класса MiddlewareDialog.
